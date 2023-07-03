@@ -7,8 +7,8 @@ export default function NoteScreen({ navigation }) {
             <Text>Note !</Text>
             <Text>Notez le cavalier !</Text>
             <Button
-                title="Go to Home"
-                onPress={() => navigation.navigate('Home')}
+                title="Go to Accueil"
+                onPress={() => navigation.navigate('Accueil')}
             />
         </View>
     );
