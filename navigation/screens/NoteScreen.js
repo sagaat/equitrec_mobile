@@ -10,6 +10,10 @@ export default function NoteScreen({ navigation }) {
                 title="Go to Home"
                 onPress={() => navigation.navigate('Home')}
             />
+            <Button
+                title="Go to Test"
+                onPress={() => navigation.navigate('Test')}
+            />
         </View>
     );
 }
