@@ -4,30 +4,39 @@ import * as SQLite from 'expo-sqlite';
 import axios from 'axios';
 
 
-// Ouvrir la connexion à la base de données SQLite
-const db = SQLite.openDatabase({ name: 'mydatabase.db' });
 
-// Récupérer les données de la table souhaitée
-db.transaction((tx) => {
-  tx.executeSql('SELECT * FROM ma_table', [], (tx, results) => {
-    const data = results.rows.raw();
-    // Envoyer les données récupérées vers votre site web
-    sendDataToWebsite(data);
-  });
-});
-
-
-// Envoyer les données vers votre site web
-const sendDataToWebsite = async (data) => {
-  try {
-    const response = await axios.post('https://votre-site-web.com/api/receive-data', {
-      data: JSON.stringify(data),
-    });
-    console.log(response.data);
-  } catch (error) {
-    console.error(error);
-  }
-};
+const sendDataToApi = async () => {
+    try {
+      const dataToSend = {
+        data: JSON.stringify({
+            id: 1,
+            id_obstacle: 1,
+            id_cavalier: 1,
+            id_niveau: 1,
+            id_style: 1,
+            id_contrat: 1,
+            id_allure: 1,
+            id_penalite: 1,
+        }),
+      };
+  
+      const response = await axios.post('http://127.0.0.1:8000/api/receive-data', dataToSend);
+      console.log(response.data);
+    } catch (error) {
+      if (error.response) {
+        // La requête a été effectuée, mais le serveur a répondu avec un code d'erreur
+        console.error('Réponse du serveur:', error.response.data);
+        console.error('Code de réponse:', error.response.status);
+      } else if (error.request) {
+        // La requête a été effectuée, mais aucune réponse n'a été reçue
+        console.error('Pas de réponse reçue:', error.request);
+      } else {
+        // Une erreur s'est produite lors de la configuration de la requête
+        console.error('Erreur de configuration de la requête:', error.message);
+      }
+    }
+  };
+  
 
 export default function SubmitNotes() {
     return (
@@ -35,6 +44,7 @@ export default function SubmitNotes() {
             style={styles.button}
             onPress={() => {
                 console.log('Submit Notes');
+                sendDataToApi();
             }
         }
         >

@@ -54,9 +54,4 @@ export default function InitDB() {
         });
     }, []);
 
-    return (
-        <SafeAreaView>
-            <Text>Initialisation de la base de données</Text>
-        </SafeAreaView>
-    );
 }
