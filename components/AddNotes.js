@@ -7,7 +7,9 @@ const AddNotes = () => {
     db.transaction(
         tx => {
             tx.executeSql(
-                'insert into note (id, id_obstacle, id_cavalier, id_niveau, id_style, id_contrat, id_allure, id_penalite) values (1, 1, 1, 1, 1, 1, 1, 1), (2, 1, 2, 2, 2, 2, 2, 2), (3, 1, 3, 3, 3, 3, 3, 3);',
+                'insert into note (id, id_obstacle, id_cavalier, id_niveau, id_style, id_contrat, id_allure, id_penalite) values (1, 1, 1, 1, 1, 1, 1, 1, 1);',
+                'insert into note (id, id_obstacle, id_cavalier, id_niveau, id_style, id_contrat, id_allure, id_penalite) values (2, 2, 2, 2, 2, 2, 2, 2, 2);',
+                'insert into note (id, id_obstacle, id_cavalier, id_niveau, id_style, id_contrat, id_allure, id_penalite) values (3, 3, 3, 3, 3, 3, 3, 3, 3);'
                 );
         }
     );

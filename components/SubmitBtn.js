@@ -1,26 +1,30 @@
 import * as React from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import * as SQLite from 'expo-sqlite';
-import axios from 'axios';
-
 
 
 const sendDataToApi = async () => {
     try {
-      const dataToSend = {
-        data: JSON.stringify({
-            id: 1,
-            id_obstacle: 1,
-            id_cavalier: 1,
-            id_niveau: 1,
-            id_style: 1,
-            id_contrat: 1,
-            id_allure: 1,
-            id_penalite: 1,
-        }),
-      };
-  
-      const response = await axios.post('http://127.0.0.1:8000/api/receive-data', dataToSend);
+        const db = SQLite.openDatabase('equitrec.db');
+        db.transaction(
+            tx => {
+                tx.executeSql('select * from note;', [], (_, { rows }) => {
+                    data = rows._array;
+                    data = JSON.stringify(data);
+                    console.log(data);
+                });
+            }    
+        );
+
+      const response = await fetch('http://127.0.0.1:8000/api/receive-data', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: data
+        });
+        
+
       console.log(response.data);
     } catch (error) {
       if (error.response) {
