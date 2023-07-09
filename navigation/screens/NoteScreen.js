@@ -1,5 +1,9 @@
 import * as React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
+import OverWriteBtn from '../../components/OverWriteBtn';
+import SubmitNotes from '../../components/SubmitBtn';
+import AddNotesBtn from '../../components/AddNotes';
+
 
 export default function NoteScreen({ navigation }) {
     return (
@@ -14,6 +18,9 @@ export default function NoteScreen({ navigation }) {
                 title="Go to Test"
                 onPress={() => navigation.navigate('Test')}
             />
+            <OverWriteBtn/>
+            <AddNotesBtn/>
+            <SubmitNotes/>
         </View>
     );
 }
