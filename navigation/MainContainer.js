@@ -13,7 +13,7 @@ export default function MainContainer() {
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen name="Accueil" component={HomeScreen} />
-                <Stack.Screen name="Evaluation" component={NoteScreen} />
+                <Stack.Screen name="Note" component={NoteScreen} />
                 <Stack.Screen name="Scanner" component={ScanScreen} />
             </Stack.Navigator>
         </NavigationContainer>

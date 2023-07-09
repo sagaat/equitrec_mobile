@@ -1,14 +1,17 @@
 import * as React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 
-export default function NoteScreen({ navigation }) {
+export default function NoteScreen({ route }) {
+    const { scannedData } = route.params;
+
     return (
         <View style={styles.container}>
             <Text>Note !</Text>
             <Text>Notez le cavalier !</Text>
+            <Text>Scanned Data: {scannedData}</Text>
             <Button
-                title="Go to Accueil"
-                onPress={() => navigation.navigate('Accueil')}
+                title="Enregistrer la note"
+                onPress={() => navigation.navigate('Note')}
             />
         </View>
     );
