@@ -2,20 +2,29 @@ import * as React from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import * as SQLite from 'expo-sqlite';
 
+let data = [];
 
-let data = '';
 const sendDataToApi = async () => {
   try {
     const db = SQLite.openDatabase('equitrec.db');
-    db.transaction(
-      tx => {
-        tx.executeSql('select * from note;', [], (_, { rows }) => {
-          console.log(JSON.stringify(rows._array));
-          data = JSON.stringify(rows._array);
-          return data;
-        });
-      }
-    );
+
+    // Utiliser une promesse pour attendre la fin de la transaction SQLite
+    const executeSqlPromise = new Promise((resolve, reject) => {
+      db.transaction(
+        tx => {
+          tx.executeSql('select * from note;', [], (_, { rows }) => {
+            console.log(JSON.stringify(rows._array));
+            data = JSON.stringify(rows._array);
+            resolve(); // Résoudre la promesse une fois que les données sont disponibles
+          });
+        },
+        error => {
+          reject(error); // Rejeter la promesse en cas d'erreur
+        }
+      );
+    });
+
+    await executeSqlPromise; // Attendre que la promesse soit résolue
 
     const response = await fetch('http://172.20.10.2:8000/api/receive-data', {
       method: 'POST',
@@ -23,9 +32,7 @@ const sendDataToApi = async () => {
         'Content-Type': 'application/json'
       },
       body: data
-    },
-    console.log('>>> data', data)
-    );
+    });
 
     if (response.ok) {
       const jsonResponse = await response.json();
@@ -46,7 +53,6 @@ const sendDataToApi = async () => {
   }
 };
 
-
 export default function SubmitNotes() {
   return (
     <TouchableOpacity
@@ -54,12 +60,11 @@ export default function SubmitNotes() {
       onPress={() => {
         console.log('Submit Notes');
         sendDataToApi();
-      }
-      }
+        alert('Notes envoyées');
+      }}
     >
       <Text style={styles.buttonText}>Finaliser la notation</Text>
     </TouchableOpacity>
-
   );
 }
 

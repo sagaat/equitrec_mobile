@@ -4,18 +4,24 @@ import * as SQLite from 'expo-sqlite';
 import { useEffect } from 'react';
 
 export default function InitDB() {
-    const db = SQLite.openDatabase('equitrec.db');
+    // le useMemo permet d'évite d'ouvrir une nouvelle instance de la base de données à chaque rendu du composant
+    const db = React.useMemo(() => SQLite.openDatabase('equitrec.db'), []);
 
     useEffect(() => {
         db.transaction(tx => {
             tx.executeSql(
-                'create table if not exists cavalier (id integer primary key AUTOINCREMENT, dossard integer);'
+                'create table if not exists cavalier (id integer primary key AUTOINCREMENT, dossard integer);', 
+                'insert into niveau (id, nom, id_cavalier) values (1, "Club 1", 1);',
+                'insert into niveau (id, nom, id_cavalier) values (2, "Club 2", 2);',
+                'insert into niveau (id, nom, id_cavalier) values (3, "Club 3", 3);',
             );
             tx.executeSql(
-                'create table if not exists juge (id integer primary key AUTOINCREMENT);'
+                'create table if not exists juge (id integer primary key AUTOINCREMENT);',
+                'insert into juge (id) values (1);',
             );
             tx.executeSql(
-                'create table if not exists obstacle (id integer primary key);'
+                'create table if not exists obstacle (id integer primary key);',
+                'insert into obstacle (id) values (1);',
             );
             tx.executeSql(
                 'create table if not exists niveau (id integer primary key, nom text, id_cavalier integer, FOREIGN KEY(id_cavalier) REFERENCES cavalier(id));',
@@ -67,6 +73,6 @@ export default function InitDB() {
                 );`
             );
         });
-    }, []);
+    }, [db]);
 
 }
