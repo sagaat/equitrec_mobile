@@ -10,12 +10,12 @@ export default function NoteScreen({ navigation }) {
         <View style={styles.container}>
             <Text>Note !</Text>
             <Text>Notez le cavalier !</Text>
-            {/* <Button
+            <Button
                 title="Go to Home"
                 onPress={() => navigation.navigate('Home')}
             />
             <OverWriteBtn/>
-            <AddNotesBtn/> */}
+            <AddNotesBtn/>
             <SubmitNotes/>
         </View>
     );

@@ -13,24 +13,39 @@ export default function InitDB() {
             );
             tx.executeSql(
                 'create table if not exists juge (id integer primary key AUTOINCREMENT);'
-            ); 
+            );
             tx.executeSql(
                 'create table if not exists obstacle (id integer primary key);'
             );
             tx.executeSql(
-                'create table if not exists niveau (id integer primary key, nom text, id_cavalier integer, FOREIGN KEY(id_cavalier) REFERENCES cavalier(id));'
+                'create table if not exists niveau (id integer primary key, nom text, id_cavalier integer, FOREIGN KEY(id_cavalier) REFERENCES cavalier(id));',
+                'insert into niveau (id, nom, id_cavalier) values (1, "Club 1", 1);',
+                'insert into niveau (id, nom, id_cavalier) values (2, "Club 2", 2);',
+                'insert into niveau (id, nom, id_cavalier) values (3, "Club 3", 3);',
             );
             tx.executeSql(
-                'create table if not exists style (id integer primary key, val_style integer);'
+                'create table if not exists style (id integer primary key, val_style integer);',
+                'insert into style (id, val_style) values (1, 0);',
+                'insert into style (id, val_style) values (2, 5);',
+                'insert into style (id, val_style) values (3, 7);',
             );
             tx.executeSql(
-                'create table if not exists contrat (id integer primary key, val_contrat integer);'
+                'create table if not exists contrat (id integer primary key, val_contrat integer);',
+                'insert into contrat (id, val_contrat) values (1, 0);',
+                'insert into contrat (id, val_contrat) values (2, 5);',
+                'insert into contrat (id, val_contrat) values (3, 7);',
             );
             tx.executeSql(
-                'create table if not exists allure (id integer primary key, val_allure integer);'
+                'create table if not exists allure (id integer primary key, val_allure integer);',
+                'insert into allure (id, val_allure) values (1, 0);',
+                'insert into allure (id, val_allure) values (2, 5);',
+                'insert into allure (id, val_allure) values (3, 7);',
             );
             tx.executeSql(
-                'create table if not exists penalite (id integer primary key, libelle_penalite text, val_penalite integer, description text);'
+                'create table if not exists penalite (id integer primary key, libelle_penalite text, val_penalite integer, description text);',
+                'insert into penalite (id, libelle_penalite, val_penalite, description) values (1, "Refus", 5, "Le cheval refuse l\'obstacle");',
+                'insert into penalite (id, libelle_penalite, val_penalite, description) values (2, "Chute", 10, "Le cavalier chute du cheval");',
+                'insert into penalite (id, libelle_penalite, val_penalite, description) values (3, "Dérobade", 5, "Le cheval dérobe l\'obstacle");',
             );
             tx.executeSql(
                 `create table if not exists note (
