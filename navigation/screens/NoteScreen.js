@@ -1,5 +1,9 @@
 import * as React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
+import OverWriteBtn from '../../components/OverWriteBtn';
+import SubmitNotes from '../../components/SubmitBtn';
+import AddNotesBtn from '../../components/AddNotes';
+
 
 export default function NoteScreen({ route }) {
     const { scannedData } = route.params;
@@ -13,6 +17,9 @@ export default function NoteScreen({ route }) {
                 title="Enregistrer la note"
                 onPress={() => navigation.navigate('Note')}
             />
+            <OverWriteBtn/>
+            <AddNotesBtn/>
+            <SubmitNotes/>
         </View>
     );
 }
